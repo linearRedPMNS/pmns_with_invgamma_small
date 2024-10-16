@@ -10,7 +10,7 @@ double_spare = True	#put 'True' for DoubleSparse PMNS
 
 alpha_max = 4	#maximum absolute value allowed for 'alpha'
 
-lambda_max = 4	#maximum absolute value allowed for 'alpha'
+lambda_max = 4	#maximum absolute value allowed for 'lambda'
 
 delta = 0		#the number of desired "free" add before a modular multplication  
 
@@ -19,9 +19,7 @@ n = (p_size//phi_log2) + 1	#should be incremented (if the generator takes too lo
 nb_pmns = 10	#the desired number of PMNS (if any)
 
 
-
 p_list = look_for_good_primes(p_size, lv_tolerence, n, phi_log2, delta, alpha_max, lambda_max, double_spare, nb_pmns)	#THE GENERATOR
-
 
 
 #Note (result struct): [p.nbits(), p, n, str(E), t, phi_log2, delta]
