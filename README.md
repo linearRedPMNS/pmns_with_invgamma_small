@@ -1,5 +1,6 @@
 # Friendly PMNS, with $M(X) =$  $\frac{1}{\gamma}$  $X - 1$
 This repository contains code to generate Polynomial Modular Number Systems (PMNS) for a friendly class of primes. It also contains an efficient C codes generator. 
+
 The generated PMNS are LinearRed or DoubleSparse, with $M(X) =$  $\frac{1}{\gamma}$  $X - 1$.
 
 The PMNS generator is in the directory 'pmns_generator'.
