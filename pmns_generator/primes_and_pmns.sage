@@ -86,13 +86,13 @@ def ckeck_poly(abs_t, ext_pol, n, phi_log2, delta, min_size, max_size, tdiv_limi
 		if alph < 0: #if E polys generation process included this case 
 			E = -E
 		main_params = [p.nbits(), p, n, str(E), t, phi_log2, delta]
-		p_list.append(main_params)
 		# ~ #--------------------------------------------
 		# ~ gmm = (1/t)%p
 		# ~ rho = max(abs(t*lmbd)+1, abs(t)+abs(alph)) - 1
 		# ~ M = R([-1,t])
 		# ~ extended_params = [p.nbits(), p, n, gmm, rho, str(E), str(M), phi_log2, delta]
 		# ~ #--------------------------------------------
+		p_list.append(main_params)
 		print(main_params)
 	return p_list
 
