@@ -139,7 +139,7 @@ def look_for_linearred(n, phi_log2, delta, sorted_bino_polys, t_min, t_max, min_
 ########################################################################
 
 #note: assumes 'alpha_max, lambda_max > 0'
-def look_for_good_primes(p_size, lv_tolerence, n, phi_log2, delta, alpha_max, lambda_max, double_spare, nb_pmns):
+def look_for_good_primes(p_size, lv_tolerance, n, phi_log2, delta, alpha_max, lambda_max, double_spare, nb_pmns):
 	
 	print("					########### STARTING ###########\n")
 	
@@ -151,8 +151,8 @@ def look_for_good_primes(p_size, lv_tolerence, n, phi_log2, delta, alpha_max, la
 	
 	min_size = p_size
 	
-	if lv_tolerence >= 0:
-		max_size = p_size + lv_tolerence
+	if lv_tolerance >= 0:
+		max_size = p_size + lv_tolerance
 	else:
 		max_size = -1
 	
