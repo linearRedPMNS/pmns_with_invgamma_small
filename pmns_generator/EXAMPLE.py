@@ -7,9 +7,9 @@ p_size = 256	#the modulus (minimum) bit-size we want
 #the generation process might find suitable PMNS with modulus bit-size slightly bigger than 'p size', without any penalty on both efficiency and memory requirement. 
 #'lv_tolerance' (below) allows to decide whether or not we want such PMNS, with the maximum size we accept.
 #i.e.: we accept primes of bit-size <= (p_size + lv_tolerence); if 'lv_tolerence < 0', then no restriction is applied on modulus size.
-lv_tolerence = -1	
+lv_tolerance = -1	
 
-double_spare = True	#put 'True' for DoubleSparse PMNS
+double_spare = True	#'True' for DoubleSparse PMNS or 'False' for LinearRed PMNS
 
 alpha_max = 4	#maximum absolute value allowed for 'alpha'
 
@@ -22,7 +22,7 @@ n = (p_size//phi_log2) + 1	#should be incremented (if the generator takes too lo
 nb_pmns = 10	#the desired number of PMNS (if any)
 
 
-p_list = look_for_good_primes(p_size, lv_tolerence, n, phi_log2, delta, alpha_max, lambda_max, double_spare, nb_pmns)	#THE GENERATOR
+p_list = look_for_good_primes(p_size, lv_tolerance, n, phi_log2, delta, alpha_max, lambda_max, double_spare, nb_pmns)	#THE GENERATOR
 
 
 #Note (result struct): [p.nbits(), p, n, str(E), t, phi_log2, delta]
