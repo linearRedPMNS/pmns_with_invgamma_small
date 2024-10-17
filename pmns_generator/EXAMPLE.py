@@ -19,7 +19,7 @@ delta = 0		#the number of desired "free" add before a modular multplication  
 
 n = (p_size//phi_log2) + 1	#should be incremented (if the generator takes too long to find a PMNS) as much as necessary, especially if "delta > 0"
 
-nb_pmns = 10	#the desired number of PMNS (if any)
+nb_pmns = 6	#the desired number of PMNS (if any)
 
 
 p_list = look_for_good_primes(p_size, lv_tolerance, n, phi_log2, delta, alpha_max, lambda_max, double_spare, nb_pmns)	#THE GENERATOR
