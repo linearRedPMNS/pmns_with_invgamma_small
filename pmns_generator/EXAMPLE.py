@@ -4,7 +4,8 @@ phi_log2 = 64
 
 p_size = 256	#the modulus (minimum) bit-size we want
 
-#the generation process might find suitable PMNS with modulus bit-size slightly bigger than 'p size', without any penalty on both efficiency and memory requirement. 'lv_tolerance' (below) allows to decide whether or not we want such PMNS, with the maximum size we accept.
+#the generation process might find suitable PMNS with modulus bit-size slightly bigger than 'p size', without any penalty on both efficiency and memory requirement. 
+#'lv_tolerance' (below) allows to decide whether or not we want such PMNS, with the maximum size we accept.
 #i.e.: we accept primes of bit-size <= (p_size + lv_tolerence); if 'lv_tolerence < 0', then no restriction is applied on modulus size.
 lv_tolerence = -1	
 
