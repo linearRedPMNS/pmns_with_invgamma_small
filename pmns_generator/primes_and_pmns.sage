@@ -46,11 +46,16 @@ def compute__l_max(n, alpha_max, lambda_max, t_max):
 ########################################################################
 
 def check_bound_on_phi(phi_log2, n, E_w, E_alpha, E_lambda, delta, t):
-	a = 2 * ((delta + 1)**2) * E_w
-	b = abs(t*E_lambda) + 1
-	c = abs(t) + abs(E_alpha)
-	d = max(b, c) - 2
-	min_phi = a * d
+	a = 2 * E_w * ((delta + 1)**2)
+	if t%E_alpha == 0:  #a case mentioned in a remark of the paper
+		s = t//E_alpha
+		b = abs(s*E_lambda)
+		rho = max(b, abs(t)) 
+	else:
+		b = abs(t*E_lambda) + 1
+		c = abs(t) + abs(E_alpha)
+		rho = max(b, c) - 1
+	min_phi = a * (rho - 1)
 	phi = 1 << phi_log2
 	if phi > min_phi:
 		return True
@@ -149,6 +154,10 @@ def look_for_good_primes(p_size, lv_tolerance, n, phi_log2, delta, alpha_max, la
 	
 	(t_min, t_max) = compute__t_min__t_max(p_size, n, alpha_max, lambda_max, phi_log2, delta)
 	
+	if t_min > t_max:
+		print("No PMNS: t_min > t_max. Please increment the value of n.\n")
+		return []
+	
 	min_size = p_size
 	
 	if lv_tolerance >= 0:
@@ -171,21 +180,3 @@ def look_for_good_primes(p_size, lv_tolerance, n, phi_log2, delta, alpha_max, la
 	return pmns_found
 
 ########################################################################
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
