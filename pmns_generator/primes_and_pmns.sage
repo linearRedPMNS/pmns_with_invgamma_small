@@ -93,7 +93,14 @@ def ckeck_poly(abs_t, ext_pol, n, phi_log2, delta, min_size, max_size, tdiv_limi
 		main_params = [p.nbits(), p, n, str(E), t, phi_log2, delta]
 		# ~ #--------------------------------------------
 		# ~ gmm = (1/t)%p
-		# ~ rho = max(abs(t*lmbd)+1, abs(t)+abs(alph)) - 1
+		# ~ if t%alph == 0:  #a case mentioned in a remark of the paper
+			# ~ s = t//alph
+			# ~ b = abs(s*lmbd)
+			# ~ rho = max(b, abs(t)) 
+		# ~ else:
+			# ~ b = abs(t*lmbd) + 1
+			# ~ c = abs(t) + abs(alph)
+			# ~ rho = max(b, c) - 1
 		# ~ M = R([-1,t])
 		# ~ extended_params = [p.nbits(), p, n, gmm, rho, str(E), str(M), phi_log2, delta]
 		# ~ #--------------------------------------------
