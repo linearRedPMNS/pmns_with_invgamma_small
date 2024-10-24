@@ -16,10 +16,12 @@ def gen_binomial_polyE(n, alpha_max, lambda_max):
 	extPol_set.sort(key=binoE_sorting_criteria)
 	return extPol_set
 
+
 def binoE_sorting_criteria(ext_pol_coeffs):
 	n = len(ext_pol_coeffs) - 1
 	return compute_binoE_w(n, ext_pol_coeffs[-1], ext_pol_coeffs[0])
-	
+
+
 def compute_binoE_w(n, E_alpha, E_lambda):
 	a = n * abs(E_alpha)
 	b = abs(E_alpha) + (n-1)*abs(E_lambda)
@@ -37,6 +39,7 @@ def compute__t_min__t_max(p_size, n, alpha_max, lambda_max, phi_log2, delta):
 	t_max = floor(N(c)) + 1
 	#---------------------------------
 	return (t_min, t_max)
+
 
 def compute__l_max(n, alpha_max, lambda_max, t_max):
 	y_max = lambda_max*(t_max**n) + alpha_max
@@ -61,6 +64,7 @@ def check_bound_on_phi(phi_log2, n, E_w, E_alpha, E_lambda, delta, t):
 		return True
 	return False 
 
+
 def clean_int(y, min_size, max_size, trial_div_limit):
 	if N(log(y,2)) <= (min_size-1):
 		return 0
@@ -74,13 +78,14 @@ def clean_int(y, min_size, max_size, trial_div_limit):
 			return p	
 	return 0
 
+
 def ckeck_poly(abs_t, ext_pol, n, phi_log2, delta, min_size, max_size, tdiv_limit):	
-	lmbd = ext_pol[0]
+	lmbd = -ext_pol[0]
 	alph = ext_pol[-1]
 	w = compute_binoE_w(n, alph, lmbd)
 	if not check_bound_on_phi(phi_log2, n, w, alph, lmbd, delta, abs_t):
 		return []
-	R.<x> = ZZ[]
+	R.<X> = ZZ[]
 	p_list = []
 	for t in {-abs_t, abs_t}:
 		y = Integer(lmbd*(t**n) - alph)
@@ -106,6 +111,7 @@ def ckeck_poly(abs_t, ext_pol, n, phi_log2, delta, min_size, max_size, tdiv_limi
 		# ~ #--------------------------------------------
 		p_list.append(main_params)
 		print(main_params)
+		print()
 	return p_list
 
 ########################################################################
@@ -114,7 +120,7 @@ def look_for_doublesparse(n, phi_log2, delta, sorted_bino_polys, t_min, t_max, m
 	shift_pos = ceil(phi_log2 / 2)
 	min_up = t_min >> shift_pos
 	max_up = t_max >> shift_pos
-	print(f'DoubleSparse, with (min_up: {min_up}, max_up: {max_up})\n')
+	print(f'DoubleSparse PMNS, with (min_up: {min_up}, max_up: {max_up})\n')
 	p_list = []
 	nb_found = 0
 	# ~ for v in range(min_up, max_up):
@@ -130,9 +136,10 @@ def look_for_doublesparse(n, phi_log2, delta, sorted_bino_polys, t_min, t_max, m
 				pmns_list = flatten(p_list, max_level=1)
 				return pmns_list[:nb_pmns]
 	return flatten(p_list, max_level=1)
-	
+
+
 def look_for_linearred(n, phi_log2, delta, sorted_bino_polys, t_min, t_max, min_size, max_size, trial_div_limit, nb_pmns):
-	print(f'LinearRed, with (t_min: {t_min}, t_max: {t_max})\n')
+	print(f'LinearRed PMNS, with (t_min: {t_min}, t_max: {t_max})\n')
 	p_list = []
 	nb_found = 0
 	# ~ for abs_t in range(t_min, t_max):
@@ -153,11 +160,9 @@ def look_for_linearred(n, phi_log2, delta, sorted_bino_polys, t_min, t_max, min_
 #note: assumes 'alpha_max, lambda_max > 0'
 def look_for_good_primes(p_size, lv_tolerance, n, phi_log2, delta, alpha_max, lambda_max, double_spare, nb_pmns):
 	
-	print("					########### STARTING ###########\n")
-	
 	sorted_bino_polys = gen_binomial_polyE(n, alpha_max, lambda_max)
 	
-	print("External polynomials generation done: " + str(len(sorted_bino_polys)) + " candidates.\n")
+	print("\nExternal polynomials generation done: " + str(len(sorted_bino_polys)) + " candidates.\n")
 	
 	(t_min, t_max) = compute__t_min__t_max(p_size, n, alpha_max, lambda_max, phi_log2, delta)
 	
@@ -175,6 +180,8 @@ def look_for_good_primes(p_size, lv_tolerance, n, phi_log2, delta, alpha_max, la
 	l_max = compute__l_max(n, alpha_max, lambda_max, t_max)
 	max_tdiv_2pow = 20	#to increased (or decreased) depending on computer power
 	trial_div_limit = 1 << min(l_max, max_tdiv_2pow)
+	
+	print("					########### STARTING ###########\n")
 	
 	pmns_found = []
 	if double_spare:
