@@ -167,7 +167,7 @@ def look_for_good_primes(p_size, lv_tolerance, n, phi_log2, delta, alpha_max, la
 	(t_min, t_max) = compute__t_min__t_max(p_size, n, alpha_max, lambda_max, phi_log2, delta)
 	
 	if t_min > t_max:
-		print("No PMNS: t_min > t_max. Please increment the value of n.\n")
+		print("No PMNS: t_min > t_max. Please increment the value of 'n', or increase 'phi_log2'.\n")
 		return []
 	
 	min_size = p_size
