@@ -5,7 +5,7 @@ The generated PMNS are LinearRed or DoubleSparse, with $M(X) =$  $\frac{1}{\gamm
 
 The PMNS generator is in the directory 'pmns_generator'.
 
-A standard C codes generator is provided in the directory 'C_codes_generator'. Given a PMNS (obtained from the preceding generator), it generates C codes for all the main operations (including forward and backward conversion to PMNS, addition, multiplication).
+A standard C codes generator is provided in the directory 'C_codes_generator'. Given a PMNS (obtained from the preceding generator), it generates C codes for all the main operations (including forward and backward conversion to PMNS, addition, multiplication). The generated C code will be in the 'c_codes' subdirectory of this directory, and its entry point is the 'main.c' file, which contains the commands to compile and run it.
 
 In each directory, a file 'EXAMPLE.py' explains how to use the corresponding generator.
 
