@@ -12,7 +12,6 @@ def gen_binomial_polyE(n, alpha_max, lambda_max):
 				continue
 			bino_E = [b] + mid_part + [a]
 			extPol_set.append(bino_E)
-			#extPol_set.append(tuple(bino_E))
 	extPol_set.sort(key=binoE_sorting_criteria)
 	return extPol_set
 
@@ -89,6 +88,10 @@ def ckeck_poly(abs_t, ext_pol, n, phi_log2, delta, min_size, max_size, tdiv_limi
 	p_list = []
 	for t in {-abs_t, abs_t}:
 		y = Integer(lmbd*(t**n) - alph)
+		if t%alph == 0:		#the special case in a remark; note that: gcd(alph, lmbd) = 1
+			y = y // alph
+		if gcd(y, 1<<phi_log2) != 1:	#for G^{-1}(mod \phi) to exist
+			continue
 		p = clean_int(y, min_size, max_size, tdiv_limit)
 		if p == 0:
 			continue
@@ -116,6 +119,12 @@ def ckeck_poly(abs_t, ext_pol, n, phi_log2, delta, min_size, max_size, tdiv_limi
 
 ########################################################################
 
+#sort by 'p' value	
+#assumes that: pmns_params = [p.nbits(), p, n, str(E), t, phi_log2, delta]
+def pmns_sorting_criteria(pmns_params):
+	return pmns_params[1]
+
+
 def look_for_doublesparse(n, phi_log2, delta, sorted_bino_polys, t_min, t_max, min_size, max_size, trial_div_limit, nb_pmns):
 	shift_pos = ceil(phi_log2 / 2)
 	min_up = t_min >> shift_pos
@@ -133,9 +142,12 @@ def look_for_doublesparse(n, phi_log2, delta, sorted_bino_polys, t_min, t_max, m
 				nb_found += len(ps)
 				p_list.append(ps)
 			if nb_found >= nb_pmns:
-				pmns_list = flatten(p_list, max_level=1)
-				return pmns_list[:nb_pmns]
-	return flatten(p_list, max_level=1)
+				p_list = flatten(p_list, max_level=1)
+				p_list.sort(key=pmns_sorting_criteria)
+				return p_list[:nb_pmns]
+	p_list = flatten(p_list, max_level=1)
+	p_list.sort(key=pmns_sorting_criteria)
+	return p_list
 
 
 def look_for_linearred(n, phi_log2, delta, sorted_bino_polys, t_min, t_max, min_size, max_size, trial_div_limit, nb_pmns):
@@ -151,9 +163,12 @@ def look_for_linearred(n, phi_log2, delta, sorted_bino_polys, t_min, t_max, min_
 				nb_found += len(ps)
 				p_list.append(ps)
 			if nb_found >= nb_pmns:
-				pmns_list = flatten(p_list, max_level=1)
-				return pmns_list[:nb_pmns]
-	return flatten(p_list, max_level=1)
+				p_list = flatten(p_list, max_level=1)
+				p_list.sort(key=pmns_sorting_criteria)
+				return p_list[:nb_pmns]
+	p_list = flatten(p_list, max_level=1)
+	p_list.sort(key=pmns_sorting_criteria)
+	return p_list
 	
 ########################################################################
 
@@ -167,7 +182,7 @@ def look_for_good_primes(p_size, lv_tolerance, n, phi_log2, delta, alpha_max, la
 	(t_min, t_max) = compute__t_min__t_max(p_size, n, alpha_max, lambda_max, phi_log2, delta)
 	
 	if t_min > t_max:
-		print("No PMNS: t_min > t_max. Please increment the value of 'n', or increase 'phi_log2'.\n")
+		print("No PMNS: t_min > t_max. Please increment 'n', or increase 'phi_log2'.\n")
 		return []
 	
 	min_size = p_size
@@ -189,7 +204,7 @@ def look_for_good_primes(p_size, lv_tolerance, n, phi_log2, delta, alpha_max, la
 	else:
 		pmns_found = look_for_linearred(n, phi_log2, delta, sorted_bino_polys, t_min, t_max, min_size, max_size, trial_div_limit, nb_pmns)
 		
-	print("\n					########### ENDED ###########")
+	print("					########### ENDED ###########")
 	
 	return pmns_found
 
