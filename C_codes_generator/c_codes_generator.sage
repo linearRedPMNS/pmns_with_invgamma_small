@@ -146,11 +146,6 @@ def build_pmns_c_codes(pmns_data, p_num=0, pmns_num=0):
 	cpfile("constant_files/Makefile", dir_path)
 	cpfile("constant_files/gmp_stuff.c", dir_path)
 	
-	# ~ cpfile("constant_files/main__check_ops.c", dir_path+"/main__check_ops.c")
-	# ~ cpfile("constant_files/main__for_nb_cycles.c", dir_path+"/main__for_nb_cycles.c")
-	# ~ cpfile("constant_files/gmp_stuff.c", dir_path)
-	# ~ cpfile("constant_files/intel_measurement_stuff.c", dir_path)
-	
 	# ~ ----------------------------------------------------------------
 	
 	
