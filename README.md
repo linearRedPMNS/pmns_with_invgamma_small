@@ -17,7 +17,7 @@ In both cases, the code is compiled with the command:
 
 The above command also compiles a simple example of main (the file 'main.c') that can be run with the command:
 > ./main
-
+<br>
 
 In each directory ('pmns_generator' and 'C_codes_generator'), an 'EXAMPLE.py' file shows how to use the corresponding generator.
 <br>
